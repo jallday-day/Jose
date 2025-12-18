@@ -1,0 +1,38 @@
+<!-- EmailJS Library -->
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+<script>
+  (function(){
+    emailjs.init("BhBvApaFLLnW7DL16"); // Your Public Key
+  })();
+</script>
+
+<!-- Booking Form -->
+<form id="bookingForm">
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="email" id="email" placeholder="Your Email" required>
+  <input type="text" id="phone" placeholder="Phone Number" required>
+  <input type="text" id="destination" placeholder="Destination" required>
+  <input type="date" id="date" required>
+  
+  <button type="submit">Book Now</button>
+</form>
+
+<script>
+document.getElementById("bookingForm").addEventListener("submit", function(e){
+    e.preventDefault(); // Stop form from reloading the page
+
+    emailjs.send("service_fspt75u", "template_85ibz5i dry", {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        destination: document.getElementById("destination").value,
+        date: document.getElementById("date").value
+    })
+    .then(function(response) {
+        alert("Booking sent successfully!");
+    }, function(error) {
+        alert("Failed to send booking. Error: " + JSON.stringify(error));
+    });
+});
+</script>
